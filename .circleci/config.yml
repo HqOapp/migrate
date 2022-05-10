@@ -32,7 +32,6 @@ jobs:
             - '68:84:cc:68:92:f5:2c:71:7f:8b:05:01:0b:b5:4a:de' # This is the global HqO github ssh key
       - setup_remote_docker:
           docker_layer_caching: true
-          context: artifactory
       - checkout
       - artifactory/install
       - artifactory/docker-login:
@@ -59,4 +58,6 @@ workflows:
   version: 2
   build:
     jobs:
-      - build_and_push_image
+      - build_and_push_image:
+          name: Build Migrate
+          context: artifactory
