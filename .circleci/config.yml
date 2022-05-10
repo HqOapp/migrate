@@ -59,4 +59,4 @@ workflows:
   version: 2
   build:
     jobs:
-      - build_migrate_image
+      - build_and_push_image
