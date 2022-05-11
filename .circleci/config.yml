@@ -23,8 +23,8 @@ commands:
             go env -w GOPRIVATE="github.com/HqOapp/*"
             go env -w GONOSUMDB="github.com/HqOapp/*"
             go env -w GO111MODULE="auto"
-            go env -w DATABASE=""
-            go env -w SOURCE=""
+            export DATABASE=""
+            export SOURCE=""
 
 jobs:
   build_and_push_image:
