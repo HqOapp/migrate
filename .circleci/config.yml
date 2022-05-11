@@ -23,12 +23,13 @@ commands:
             go env -w GOPRIVATE="github.com/HqOapp/*"
             go env -w GONOSUMDB="github.com/HqOapp/*"
             go env -w GO111MODULE="auto"
-            export DATABASE=""
-            export SOURCE=""
 
 jobs:
   build_and_push_image:
     executor: golang-1_16
+    environment: 
+      DATABASE=""
+      SOURCE=""
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
