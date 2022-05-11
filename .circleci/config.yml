@@ -37,8 +37,6 @@ jobs:
       - run:
           name: Build & Tag Migrate Image
           command: docker build . -t hqo-docker.jfrog.io/migrate:$CIRCLE_SHA1 -t hqo-docker.jfrog.io/migrate:latest --progress=plain
-          environment:
-            DOCKER_BUILDKIT: 1
       - run:
           name: Publish migrate image with commit hash tag
           command: docker push hqo-docker.jfrog.io/migrate:$CIRCLE_SHA1
