@@ -9,7 +9,6 @@ executors:
       - image: cimg/go:1.16
 
 orbs:
-  goreleaser: hubci/goreleaser@1.0
   artifactory: circleci/artifactory@1.0.0
   gotools: gotest/tools@0.0.13
 
@@ -36,7 +35,7 @@ jobs:
           artifactory-key: ARTIFACTORY_APIKEY
           docker-registry: hqo-docker.jfrog.io
       - goreleaser/install:
-          version: '0.173.2'
+          version: '1.8.3'
       - setup_goenv
       - run:
           name: Build migrate binary and docker image
