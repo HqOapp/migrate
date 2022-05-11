@@ -9,7 +9,6 @@ executors:
       - image: cimg/go:1.16
 
 orbs:
-  goreleaser: hubci/goreleaser@1.0
   artifactory: circleci/artifactory@1.0.0
   gotools: gotest/tools@0.0.13
 
@@ -29,21 +28,17 @@ jobs:
     executor: golang-1_16
     steps:
       - setup_remote_docker:
-          docker_layer_caching: false
+          docker_layer_caching: true
       - checkout
       - artifactory/install
       - artifactory/docker-login:
           artifactory-key: ARTIFACTORY_APIKEY
           docker-registry: hqo-docker.jfrog.io
-      - goreleaser/install:
-          version: '1.8.3'
-      - setup_goenv
       - run:
-          name: Build migrate binary and docker image
-          environment: 
-            DATABASE: ""
-            SOURCE: ""
-          command: goreleaser --snapshot --skip-publish --rm-dist
+          name: Build & Tag Migrate Image
+          command: docker build . -t hqo-docker.jfrog.io/migrate:$CIRCLE_SHA1 -t hqo-docker.jfrog.io/migrate:latest --progress=plain
+          environment:
+            DOCKER_BUILDKIT: 1
       - run:
           name: Publish migrate image with commit hash tag
           command: docker push hqo-docker.jfrog.io/migrate:$CIRCLE_SHA1
